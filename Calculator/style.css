@@ -1,0 +1,91 @@
+html,body{
+    width:100%;
+    height:100%;
+    background-color:#286a35;
+    background-image: url("https://besthqwallpapers.com/Uploads/23-4-2019/88484/thumb2-green-matrix-background-4k-digits-hieroglyphs-matrix-texture.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+.Calculator
+{
+    background: #201d66;
+    width:300px;
+    padding:15px;
+    position:absolute;
+    top:50%;
+    text-align:center;
+    border-radius:30px;
+    left:50%;
+    list-style-position: inside;
+    transform:translate(-50%,-50%);
+    box-shadow: 4px 4px 10px #a1a1a1;
+}
+
+.Display{
+    text-align:right;
+    background-color: #dbddbd;
+    overflow:hidden;
+    font-family: sans-serif;
+    width:90%;
+    height:35px;
+    padding:10px;
+    margin:8px 0px 20px 10px;
+    line-height:50px;
+    font-size:35px;
+    box-shadow:inset 0 0 8px rgba(0,0,0,0.5),inset 0px 2px 0 #a1a1a1;
+    padding-right:10px;
+    color:#52524e; 
+}
+
+ul{
+    padding:0;
+    margin:0;
+    user-select: none;
+}
+
+ul li{
+    cursor:pointer;
+    font-family: roboto ;
+    width:15%;
+    margin:3.5px;
+    font-size:1.3rem;
+    background-color:#7c7b7b;
+    box-shadow:0 3px 0 #c5c2c2,0 2px 5px rgba(0,0,0,0.75);
+    float:left;
+    list-style: none;
+    border-radius:5px;
+    padding:10px;
+}
+
+ul li:nth-child(16){
+    height:75px;
+    text-align:center;
+}
+
+ul li:last-child{
+    margin-top:-47px;
+    width:63%;
+}
+
+ul li:hover{
+  
+    background-color:#a3a3a3;
+}
+
+ul li:active{
+    box-shadow:none;
+    position:relative;
+    top:5px;
+}
+
+.Signature{
+    color:white;
+    font-size:1.5rem;
+    text-align:right;
+    position:relative;
+    top:4px;
+    right:5px;
+    z-index:-1;
+    font-family: cursive;
+}
