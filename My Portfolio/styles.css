@@ -14,12 +14,16 @@ body {
 
 /* 1. Header Nav Bar */
 .nav-bar {
+    position: fixed;
+    top: 0;
+    width: 100%;
     display: flex;
     justify-content: space-around;
     align-items: center;
     height: 87px;
     background-color: #190b5f;
     color: #ffffff;
+    z-index: 1000;
 }
 
 .nav-bar h1 {
@@ -56,6 +60,7 @@ main{
 
 /* 2. About */
 #about {
+    margin-top: 40px;
     display: flex;
     align-items: center;
     justify-content: space-around;
