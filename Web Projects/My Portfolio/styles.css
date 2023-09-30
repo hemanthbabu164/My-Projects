@@ -101,6 +101,7 @@ main{
 
 /* 3. Project List */
 #projects{
+    margin-top: 40px;
     padding: 60px 20px;
     border-radius: 5%;
     background-color: #0f1061;
@@ -161,6 +162,7 @@ main{
 
 /* 4. Skills */
 #skills{
+    margin-top: 40px;
     padding: 40px;
     margin: 0;
     border-radius: 5%;
