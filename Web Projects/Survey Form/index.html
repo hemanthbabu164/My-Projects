@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="styles.css" />
+    <title>Survey Form</title>
+  </head>
+  <body>
+    <h1 id="title">Survey</h1>
+    <p id="description">This Survey that survey</p>
+    <form id="survey-form">
+      <label for="name" id="name-label">Name:</label>
+      <input id="name" type="text" placeholder="Enter name" required />
+      <br />
+      <label for="email" id="email-label">Email:</label>
+      <input id="email" type="email" placeholder="Enter Email" required />
+      <br />
+      <label for="number" id="number-label">Number:</label>
+      <input
+        id="number"
+        type="number"
+        placeholder="Enter Number"
+        min="0"
+        max="100000000"
+      />
+      <br />
+      <label for="dropdown" id="dropdown-label">Dropdown:</label>
+      <select name="drop-ops" id="dropdown">
+        <option value="option1">option1</option>
+        <option value="option2">option2</option>
+        <option value="option3">option3</option>
+      </select>
+      <br />
+      <p>Select from the 2 Radio Buttons:</p>
+      <input type="radio" id="opt1" name="selct-radio" value="OPT1" />
+      <label for="opt1">OPT1</label>
+      <input type="radio" id="opt2" name="selct-radio" value="OPT2" />
+      <label for="opt2">OPT2</label>
+      <input type="radio" id="opt3" name="selct-radio" value="OPT3" />
+      <label for="opt3">OPT3</label>
+      <br />
+
+      <p>Select from 2 CheckBoxes:</p>
+      <input type="checkbox" id="checkop1" name="checkbox1" value="CHECKOP1" />
+      <label for="checkop1">CHECKOP1</label>
+      <input type="checkbox" id="checkop2" name="checkbox1" value="CHECKOP2" />
+      <label for="checkop2">CHECKOP2</label>
+      <br />
+      <textarea placeholder="Additional Comments"></textarea>
+      <br />
+      <button type="submit" id="submit">submit</button>
+    </form>
+  </body>
+</html>

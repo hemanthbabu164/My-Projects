@@ -1,4 +1,5 @@
-from player import RandomComputerPlayer,HumanPlayer
+import time
+from player import RandomComputerPlayer,HumanPlayer,GeniusComputerPlayer
 
 class TicTacToe:
     def __init__(self):
@@ -7,7 +8,7 @@ class TicTacToe:
         self.current_winner=None #tracking winner
 
     def print_board(self):
-        #for display only
+        #for display only, printing a row(three elements an iteration only)
         for row in [self.board[i*3:(i+1)*3] for i in range(3)]:
             print('| '+' | '.join(row)+' |')
             # print('________')
@@ -15,7 +16,7 @@ class TicTacToe:
     @staticmethod
     def print_board_nums():
         #available number or number corresponding to each box
-        number_board=[[str(i) for i in range(j*3+1,(j+1)*3+1)] for j in range(3)]
+        number_board=[[str(i) for i in range(j*3+1,(j+1)*3+1)] for j in range(3)] #its just a 3*3 matrix display of 1-9
         for row in number_board:
             print('| '+' | '.join(row)+' |')
 
@@ -23,8 +24,6 @@ class TicTacToe:
         #return list []
         moves=[]
         for (i,spot) in enumerate(self.board):
-            #enumerate: list to list of tuples
-            #Ex: ['x','x','o']--> [(0,'x'),(1,'x'),(2,'o')]
             if spot==' ':
                 moves.append(i)
         return moves
@@ -32,10 +31,10 @@ class TicTacToe:
         #return [i for i,spot in enumerate(self.board) if spot==' ']
     
     def empty_squares(self):
-        return ' ' in self.board
+        return ' ' in self.board #bool
 
     def num_of_empty_squares(self):
-        return self.board.count(' ')
+        return self.board.count(' ') 
     
     def make_move(self, square, letter):
         #if valid move, then make the move and return true,
@@ -71,6 +70,7 @@ class TicTacToe:
                 return True
             if all([spot ==letter for spot in diagonal2]):
                 return True
+       
         return False
 
 
@@ -92,20 +92,30 @@ def play(game, x_player,o_player, print_game=True):
         if(game.make_move(square,letter)):
             if(print_game):
                 print(f'{letter} makes a move to square {square+1}')
+                game.print_board()
                 if game.isWinner(square,letter):
                     return f'\n{letter}_player Won The Match!'
 
-                game.print_board()
                 print('')#Just some spacing in between
 
             #now to give the other player the move, we change the letter(toggling)
             letter='O' if letter=='X' else 'X'
+        time.sleep(0.8)#a small break for each move
     if print_game:
         return 'It\'s a TIE!'
     
 
 if __name__=='__main__':
     x_player=HumanPlayer('X')
-    o_player=RandomComputerPlayer('O')
+    n_player=int(input("Press 2 for 2 players, anything else for 1 player: "))
+    if(n_player==2):
+        o_player=HumanPlayer('O')
+    else:
+        difficulty=int(input("Press 1 For EASY MODE , anything else If You Dont Want to win. : "))
+        if difficulty==1:
+            o_player=RandomComputerPlayer('O')
+        else:
+            o_player=GeniusComputerPlayer('O')
+    
     t=TicTacToe()
     print(play(t,x_player,o_player,print_game=True))

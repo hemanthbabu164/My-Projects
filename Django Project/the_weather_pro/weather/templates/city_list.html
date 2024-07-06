@@ -1,0 +1,9 @@
+{% extends "base.html" %} {% block content %}
+<h2>Choose the One You want to Delete</h2>
+{% for city in city_list %}
+<a href="{% url 'city_delete' city.id %}"
+  ><p>{{ city.id }} -- {{ city.name }}</p></a
+>
+{% endfor %}
+<a href="{% url 'weather' %}">Back to Weather</a>
+{% endblock %}

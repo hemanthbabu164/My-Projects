@@ -1,0 +1,59 @@
+{% extends "base.html" %} {% block styles %}
+<style>
+  .container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  .title {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+  .weather-box {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  .weather-box img {
+    vertical-align: middle;
+  }
+  .weather-details {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+  }
+  .weather-city {
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+</style>
+{% endblock %} {% block content %}
+<div class="container">
+  <h1 class="title">KNOW THE WEATHER...</h1>
+  <form method="POST">
+    {% csrf_token %}
+    <input
+      type="text"
+      name="{{ form.name.name }}"
+      placeholder="Enter city name"
+    />
+    <button type="submit">Add City</button>
+  </form>
+
+  {% for weather in weather_data %}
+  <div class="weather-box">
+    <img
+      src="http://openweathermap.org/img/w/{{ weather.icon }}.png"
+      alt="Weather icon"
+    />
+    <div class="weather-details">
+      <div class="weather-city">{{ weather.city }}</div>
+      <div>{{ weather.temperature }}° C</div>
+      <div>{{ weather.description }}</div>
+    </div>
+  </div>
+  {% endfor %}
+
+  <a href="{% url 'city_list' %}">Manage Cities</a>
+</div>
+{% endblock %}
