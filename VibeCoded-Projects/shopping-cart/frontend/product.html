@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - Automobile Parts Shop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+        }
+
+        .back-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .product-detail {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .product-image {
+            height: 400px;
+            background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            color: #666;
+            border: 2px solid #ddd;
+        }
+
+        .product-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .product-title {
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: #333;
+            line-height: 1.2;
+        }
+
+        .product-manufacturer {
+            font-size: 1.3rem;
+            color: #667eea;
+            font-weight: 500;
+        }
+
+        .product-price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #28a745;
+        }
+
+        .product-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .meta-label {
+            font-size: 0.9rem;
+            color: #666;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .meta-value {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .product-description {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+
+        .product-description h3 {
+            margin-bottom: 15px;
+            color: #333;
+            font-size: 1.3rem;
+        }
+
+        .product-description p {
+            line-height: 1.6;
+            color: #555;
+            font-size: 1.1rem;
+        }
+
+        .actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .quantity-input {
+            width: 80px;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .quantity-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .quantity-btn:hover {
+            background: #5a6fd8;
+        }
+
+        .stock-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .stock-badge {
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .stock-in {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .stock-low {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .stock-out {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px;
+            color: #666;
+            font-size: 1.2rem;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .product-detail {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .product-image {
+                height: 250px;
+                font-size: 4rem;
+            }
+            
+            .actions {
+                flex-direction: column;
+            }
+            
+            .product-meta {
+                grid-template-columns: 1fr;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚗 Product Details</h1>
+            <a href="index.html" class="back-btn">
+                ⬅️ Back to Shop
+            </a>
+        </div>
+
+        <div class="content">
+            <div id="loadingMessage" class="loading">
+                Loading product details...
+            </div>
+
+            <div id="errorMessage" class="error" style="display: none;"></div>
+            
+            <div id="successMessage" class="success-message"></div>
+
+            <div id="productContainer" style="display: none;">
+                <div class="product-detail">
+                    <div class="product-image" id="productImage">
+                        🔧
+                    </div>
+                    
+                    <div class="product-info">
+                        <h1 class="product-title" id="productTitle"></h1>
+                        <div class="product-manufacturer" id="productManufacturer"></div>
+                        <div class="product-price" id="productPrice"></div>
+                        
+                        <div class="stock-info">
+                            <span id="stockBadge" class="stock-badge"></span>
+                            <span id="stockText"></span>
+                        </div>
+                        
+                        <div class="product-meta">
+                            <div class="meta-item">
+                                <span class="meta-label">Part Number</span>
+                                <span class="meta-value" id="partNumber"></span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Category</span>
+                                <span class="meta-value" id="category"></span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Stock</span>
+                                <span class="meta-value" id="stockQuantity"></span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Manufacturer</span>
+                                <span class="meta-value" id="manufacturerMeta"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="quantity-selector">
+                            <label for="quantity">Quantity:</label>
+                            <button class="quantity-btn" onclick="decreaseQuantity()">-</button>
+                            <input type="number" id="quantity" class="quantity-input" value="1" min="1">
+                            <button class="quantity-btn" onclick="increaseQuantity()">+</button>
+                        </div>
+                        
+                        <div class="actions">
+                            <button class="btn btn-success" onclick="addToCart()" id="addToCartBtn">
+                                🛒 Add to Cart
+                            </button>
+                            <button class="btn btn-primary" onclick="window.location.href='index.html'">
+                                Continue Shopping
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-description">
+                    <h3>📝 Product Description</h3>
+                    <p id="productDescription"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        const API_BASE = 'http://127.0.0.1:8000';
+        let sessionId = generateSessionId();
+        let currentProduct = null;
+
+        // Generate unique session ID
+        function generateSessionId() {
+            return localStorage.getItem('sessionId') || (() => {
+                const id = 'session_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
+                localStorage.setItem('sessionId', id);
+                return id;
+            })();
+        }
+
+        // Get product ID from URL parameters
+        function getProductIdFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('id');
+        }
+
+        // API helper function
+        async function apiCall(endpoint, options = {}) {
+            try {
+                const response = await fetch(`${API_BASE}${endpoint}`, {
+                    headers: {
+                        'X-Session-ID': sessionId,
+                        'Content-Type': 'application/json',
+                        ...options.headers
+                    },
+                    ...options
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                return await response.json();
+            } catch (error) {
+                console.error('API Error:', error);
+                showError(`API Error: ${error.message}`);
+                throw error;
+            }
+        }
+
+        // Load product details
+        async function loadProduct(productId) {
+            try {
+                document.getElementById('loadingMessage').style.display = 'block';
+                document.getElementById('productContainer').style.display = 'none';
+                
+                const product = await apiCall(`/products/${productId}`);
+                currentProduct = product;
+                
+                displayProduct(product);
+                
+                document.getElementById('loadingMessage').style.display = 'none';
+                document.getElementById('productContainer').style.display = 'block';
+                
+            } catch (error) {
+                document.getElementById('loadingMessage').style.display = 'none';
+                showError('Failed to load product details. Product may not exist.');
+            }
+        }
+
+        // Display product information
+        function displayProduct(product) {
+            document.getElementById('productTitle').textContent = product.name;
+            document.getElementById('productManufacturer').textContent = product.manufacturer || 'Generic Brand';
+            document.getElementById('productPrice').textContent = `$${product.price.toFixed(2)}`;
+            document.getElementById('partNumber').textContent = product.part_number;
+            document.getElementById('category').textContent = product.category || 'Uncategorized';
+            document.getElementById('stockQuantity').textContent = product.stock_quantity;
+            document.getElementById('manufacturerMeta').textContent = product.manufacturer || 'Generic';
+            document.getElementById('productDescription').textContent = product.description || 'No detailed description available for this product.';
+            
+            // Update page title
+            document.title = `${product.name} - Automobile Parts Shop`;
+            
+            // Set stock status
+            const stockBadge = document.getElementById('stockBadge');
+            const stockText = document.getElementById('stockText');
+            const addToCartBtn = document.getElementById('addToCartBtn');
+            const quantityInput = document.getElementById('quantity');
+            
+            if (product.stock_quantity <= 0) {
+                stockBadge.className = 'stock-badge stock-out';
+                stockBadge.textContent = 'Out of Stock';
+                stockText.textContent = 'This item is currently unavailable';
+                addToCartBtn.disabled = true;
+                addToCartBtn.textContent = '❌ Out of Stock';
+                quantityInput.disabled = true;
+            } else if (product.stock_quantity <= 5) {
+                stockBadge.className = 'stock-badge stock-low';
+                stockBadge.textContent = 'Low Stock';
+                stockText.textContent = `Only ${product.stock_quantity} left in stock`;
+                quantityInput.max = product.stock_quantity;
+            } else {
+                stockBadge.className = 'stock-badge stock-in';
+                stockBadge.textContent = 'In Stock';
+                stockText.textContent = 'Available for immediate shipping';
+                quantityInput.max = product.stock_quantity;
+            }
+        }
+
+        // Quantity controls
+        function increaseQuantity() {
+            const input = document.getElementById('quantity');
+            const currentValue = parseInt(input.value);
+            const maxValue = parseInt(input.max) || 999;
+            
+            if (currentValue < maxValue) {
+                input.value = currentValue + 1;
+            }
+        }
+
+        function decreaseQuantity() {
+            const input = document.getElementById('quantity');
+            const currentValue = parseInt(input.value);
+            
+            if (currentValue > 1) {
+                input.value = currentValue - 1;
+            }
+        }
+
+        // Add to cart
+        async function addToCart() {
+            if (!currentProduct) return;
+            
+            const quantity = parseInt(document.getElementById('quantity').value);
+            
+            try {
+                await apiCall(`/cart/add?product_id=${currentProduct.id}&quantity=${quantity}`, {
+                    method: 'POST'
+                });
+                
+                showSuccess(`Added ${quantity} × ${currentProduct.name} to your cart!`);
+                
+                // Update the add to cart button temporarily
+                const btn = document.getElementById('addToCartBtn');
+                const originalText = btn.textContent;
+                btn.textContent = '✅ Added to Cart!';
+                btn.style.background = '#28a745';
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = '';
+                }, 2000);
+                
+            } catch (error) {
+                showError('Failed to add item to cart. Please try again.');
+            }
+        }
+
+        // Show error message
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            setTimeout(() => {
+                errorDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        // Show success message
+        function showSuccess(message) {
+            const successDiv = document.getElementById('successMessage');
+            successDiv.textContent = message;
+            successDiv.style.display = 'block';
+            setTimeout(() => {
+                successDiv.style.display = 'none';
+            }, 3000);
+        }
+
+        // Initialize the page
+        function init() {
+            const productId = getProductIdFromUrl();
+            
+            if (!productId) {
+                showError('No product ID specified. Redirecting to shop...');
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 2000);
+                return;
+            }
+            
+            loadProduct(productId);
+        }
+
+        // Start the application when page loads
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

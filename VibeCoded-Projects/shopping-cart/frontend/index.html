@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automobile Parts Shop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .search-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .search-controls {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr auto;
+            gap: 15px;
+            align-items: end;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input, .form-group select {
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+            font-size: 0.9rem;
+            padding: 5px 10px;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .product-image {
+            height: 200px;
+            background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #666;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .product-title:hover {
+            color: #667eea;
+            text-decoration: underline;
+        }
+
+        .product-manufacturer {
+            color: #667eea;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .product-description {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #28a745;
+            margin-bottom: 15px;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .cart-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .cart-total {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .cart-items {
+            display: grid;
+            gap: 15px;
+        }
+
+        .cart-item {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-price {
+            color: #28a745;
+            font-weight: 500;
+        }
+
+        .cart-item-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quantity-input {
+            width: 60px;
+            padding: 5px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .page-btn {
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .page-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .status-bar {
+            background: #e9ecef;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: between;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .search-controls {
+                grid-template-columns: 1fr;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚗 Automobile Parts Shop</h1>
+            <p>Your one-stop shop for quality automotive parts</p>
+        </div>
+
+        <div class="content">
+            <!-- Search Section -->
+            <div class="search-section">
+                <h3>🔍 Search Products</h3>
+                <div class="search-controls">
+                    <div class="form-group">
+                        <label for="searchQuery">Search</label>
+                        <input type="text" id="searchQuery" placeholder="Search parts, manufacturers...">
+                    </div>
+                    <div class="form-group">
+                        <label for="manufacturer">Manufacturer</label>
+                        <select id="manufacturer">
+                            <option value="">All Manufacturers</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <select id="category">
+                            <option value="">All Categories</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="priceRange">Max Price</label>
+                        <input type="number" id="priceRange" placeholder="100" min="0">
+                    </div>
+                    <button class="btn btn-primary" onclick="searchProducts()">Search</button>
+                </div>
+            </div>
+
+            <!-- Status Bar -->
+            <div class="status-bar">
+                <span id="statusText">Loading products...</span>
+                <span id="apiStatus">API: Connecting...</span>
+            </div>
+
+            <!-- Error Display -->
+            <div id="errorMessage" class="error" style="display: none;"></div>
+
+            <!-- Products Grid -->
+            <div id="productsContainer">
+                <div class="loading">Loading products...</div>
+            </div>
+
+            <!-- Pagination -->
+            <div id="paginationContainer"></div>
+
+            <!-- Shopping Cart -->
+            <div class="cart-section">
+                <div class="cart-header">
+                    <h3>🛒 Shopping Cart</h3>
+                    <div>
+                        <span class="cart-total" id="cartTotal">Total: $0.00</span>
+                        <button class="btn btn-danger" onclick="clearCart()" style="margin-left: 15px;">Clear Cart</button>
+                    </div>
+                </div>
+                <div id="cartItems" class="cart-items">
+                    <p style="text-align: center; color: #666;">Your cart is empty</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        const API_BASE = 'http://localhost:8000';
+        let sessionId = generateSessionId();
+        let currentPage = 1;
+        let currentSearch = {};
+
+        // Generate unique session ID
+        function generateSessionId() {
+            return 'session_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
+        }
+
+        // API helper function
+        async function apiCall(endpoint, options = {}) {
+            try {
+                const response = await fetch(`${API_BASE}${endpoint}`, {
+                    headers: {
+                        'X-Session-ID': sessionId,
+                        'Content-Type': 'application/json',
+                        ...options.headers
+                    },
+                    ...options
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                return await response.json();
+            } catch (error) {
+                console.error('API Error:', error);
+                showError(`API Error: ${error.message}`);
+                updateAPIStatus('❌ Disconnected');
+                throw error;
+            }
+        }
+
+        // Load products
+        async function loadProducts(page = 1, searchParams = {}) {
+            try {
+                updateAPIStatus('🔄 Loading...');
+                
+                const params = new URLSearchParams({
+                    page: page,
+                    page_size: 12,
+                    ...searchParams
+                });
+
+                const data = await apiCall(`/products/?${params}`);
+                
+                displayProducts(data.products);
+                displayPagination(data);
+                updateStatus(`Showing ${data.products.length} of ${data.total} products`);
+                updateAPIStatus('✅ Connected');
+
+                currentPage = page;
+                currentSearch = searchParams;
+
+            } catch (error) {
+                document.getElementById('productsContainer').innerHTML = 
+                    '<div class="loading">Failed to load products. Please check if the API server is running.</div>';
+            }
+        }
+
+        // Display products
+        function displayProducts(products) {
+            const container = document.getElementById('productsContainer');
+            
+            if (products.length === 0) {
+                container.innerHTML = '<div class="loading">No products found</div>';
+                return;
+            }
+
+            container.innerHTML = `
+                <div class="products-grid">
+                    ${products.map(product => `
+                        <div class="product-card">
+                            <div class="product-image">🔧</div>
+                            <div class="product-info">
+                                <div class="product-title" onclick="viewProduct(${product.id})">${product.name}</div>
+                                <div class="product-manufacturer">${product.manufacturer || 'Generic'}</div>
+                                <div class="product-description">${product.description || 'No description available'}</div>
+                                <div class="product-price">$${product.price.toFixed(2)}</div>
+                                <div class="product-actions">
+                                    <button class="btn btn-success" onclick="addToCart(${product.id})">
+                                        Add to Cart
+                                    </button>
+                                    <button class="btn btn-primary" onclick="viewProduct(${product.id})">
+                                        View Details
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        // Display pagination
+        function displayPagination(data) {
+            const container = document.getElementById('paginationContainer');
+            
+            if (data.total_pages <= 1) {
+                container.innerHTML = '';
+                return;
+            }
+
+            let paginationHTML = '<div class="pagination">';
+            
+            // Previous button
+            if (data.page > 1) {
+                paginationHTML += `<button class="page-btn" onclick="loadProducts(${data.page - 1}, currentSearch)">Previous</button>`;
+            }
+
+            // Page numbers
+            for (let i = Math.max(1, data.page - 2); i <= Math.min(data.total_pages, data.page + 2); i++) {
+                paginationHTML += `<button class="page-btn ${i === data.page ? 'active' : ''}" onclick="loadProducts(${i}, currentSearch)">${i}</button>`;
+            }
+
+            // Next button
+            if (data.page < data.total_pages) {
+                paginationHTML += `<button class="page-btn" onclick="loadProducts(${data.page + 1}, currentSearch)">Next</button>`;
+            }
+
+            paginationHTML += '</div>';
+            container.innerHTML = paginationHTML;
+        }
+
+        // Search products
+        function searchProducts() {
+            const searchParams = {};
+            
+            const query = document.getElementById('searchQuery').value.trim();
+            if (query) searchParams.query = query;
+            
+            const manufacturer = document.getElementById('manufacturer').value;
+            if (manufacturer) searchParams.manufacturer = manufacturer;
+            
+            const category = document.getElementById('category').value;
+            if (category) searchParams.category = category;
+            
+            const maxPrice = document.getElementById('priceRange').value;
+            if (maxPrice) searchParams.max_price = maxPrice;
+
+            loadProducts(1, searchParams);
+        }
+
+        // Add to cart
+        async function addToCart(productId, quantity = 1) {
+            try {
+                await apiCall(`/cart/add?product_id=${productId}&quantity=${quantity}`, {
+                    method: 'POST'
+                });
+                
+                loadCart();
+                showSuccess(`Product added to cart!`);
+            } catch (error) {
+                // Error already handled in apiCall
+            }
+        }
+
+        // Load cart
+        async function loadCart() {
+            try {
+                const cart = await apiCall('/cart/');
+                displayCart(cart);
+            } catch (error) {
+                // Error already handled in apiCall
+            }
+        }
+
+        // Display cart
+        function displayCart(cart) {
+            const container = document.getElementById('cartItems');
+            const totalElement = document.getElementById('cartTotal');
+            
+            totalElement.textContent = `Total: $${cart.total_price.toFixed(2)} (${cart.total_items} items)`;
+
+            if (cart.items.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #666;">Your cart is empty</p>';
+                return;
+            }
+
+            container.innerHTML = cart.items.map(item => `
+                <div class="cart-item">
+                    <div class="cart-item-info">
+                        <div class="cart-item-name">${item.product.name}</div>
+                        <div class="cart-item-price">$${item.product.price.toFixed(2)} each</div>
+                    </div>
+                    <div class="cart-item-actions">
+                        <input type="number" value="${item.quantity}" min="1" class="quantity-input" 
+                               onchange="updateCartItem(${item.product.id}, this.value)">
+                        <button class="btn btn-danger" onclick="removeFromCart(${item.product.id})">Remove</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Update cart item
+        async function updateCartItem(productId, quantity) {
+            try {
+                await apiCall(`/cart/update/${productId}?quantity=${quantity}`, {
+                    method: 'PUT'
+                });
+                loadCart();
+            } catch (error) {
+                // Error already handled in apiCall
+            }
+        }
+
+        // Remove from cart
+        async function removeFromCart(productId) {
+            try {
+                await apiCall(`/cart/remove/${productId}`, {
+                    method: 'DELETE'
+                });
+                loadCart();
+                showSuccess('Product removed from cart');
+            } catch (error) {
+                // Error already handled in apiCall
+            }
+        }
+
+        // Clear cart
+        async function clearCart() {
+            if (!confirm('Are you sure you want to clear your cart?')) return;
+            
+            try {
+                await apiCall('/cart/clear', {
+                    method: 'DELETE'
+                });
+                loadCart();
+                showSuccess('Cart cleared');
+            } catch (error) {
+                // Error already handled in apiCall
+            }
+        }
+
+        // View product details
+        function viewProduct(productId) {
+            // Navigate to product details page
+            window.location.href = `product.html?id=${productId}`;
+        }
+
+        // Load filter options
+        async function loadFilterOptions() {
+            try {
+                const products = await apiCall('/products/?page_size=100');
+                
+                const manufacturers = [...new Set(products.products.map(p => p.manufacturer).filter(Boolean))];
+                const categories = [...new Set(products.products.map(p => p.category).filter(Boolean))];
+                
+                populateSelect('manufacturer', manufacturers);
+                populateSelect('category', categories);
+            } catch (error) {
+                // Error already handled in apiCall
+            }
+        }
+
+        // Populate select dropdown
+        function populateSelect(selectId, options) {
+            const select = document.getElementById(selectId);
+            const currentOptions = Array.from(select.options).slice(1); // Keep first option
+            
+            options.forEach(option => {
+                if (!currentOptions.some(opt => opt.value === option)) {
+                    const optionElement = document.createElement('option');
+                    optionElement.value = option;
+                    optionElement.textContent = option;
+                    select.appendChild(optionElement);
+                }
+            });
+        }
+
+        // Show error message
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            setTimeout(() => {
+                errorDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        // Show success message
+        function showSuccess(message) {
+            // Simple success feedback - you could enhance this
+            console.log('Success:', message);
+        }
+
+        // Update status
+        function updateStatus(message) {
+            document.getElementById('statusText').textContent = message;
+        }
+
+        // Update API status
+        function updateAPIStatus(status) {
+            document.getElementById('apiStatus').textContent = `API: ${status}`;
+        }
+
+        // Add Enter key support for search
+        document.getElementById('searchQuery').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchProducts();
+            }
+        });
+
+        // Initialize the application
+        async function init() {
+            updateAPIStatus('🔄 Connecting...');
+            await loadProducts();
+            await loadCart();
+            await loadFilterOptions();
+        }
+
+        // Start the application when page loads
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+Prompt for TODO list:
+"Hi Copilot. I want to build an Interactive To-Do List App that runs in the browser and includes modern features like categorization, reminders, and filtering. I like using Python, but I’m open to your suggestions for frontend and backend stacks.
+
+Here are the full feature requirements:
+Users can add, edit, delete, and mark tasks as complete
+Tasks can be categorized (e.g., work, personal, urgent)
+Users can set due dates and receive reminders
+Each task has a priority level (high, medium, low)
+Users can search and filter tasks by keyword, category, or priority
+
+🧱 I’d like help to:
+Choose a simple tech stack — something like Flask + SQLite for backend, and a lightweight frontend (Vanilla JS or simple React)
+Design the database schema (for tasks, categories, priorities, due dates)
+Scaffold the backend API endpoints
+Add basic frontend UI with interactivity (create/edit/delete/mark complete)
+Then add reminders, filtering, and priority sorting
+
+⚙️ Bonus:
+Suggest how to store tasks locally (e.g., with IndexedDB or LocalStorage) for an offline-first version
+Suggest how to make the reminders work — maybe with browser notifications or scheduled backend checks
+Please help me start by creating the backend data model and routes."
+
+
+Prompts for Shopping Cart:
+
+1st Prompt:
+"Hi Copilot. I want to build a complete shopping cart system for an e-commerce-like platform (focused on automobile parts).
+
+I prefer using Python, so suggest the best stack for this (e.g., Flask + SQLite or FastAPI + MongoDB). Please scaffold the project structure and guide me step-by-step.
+
+Here's the functional spec I need to implement:
+
+🔧 Backend (REST API):
+Get product list with pagination
+Get product details by ID
+Search products by name, description, manufacturer, or price
+Optional: add a price range filter (slicer)
+
+🛒 Shopping Cart:
+Add product to cart
+Remove product from cart
+Calculate total price
+
+🖥️ Frontend (minimal or API testable):
+List products on homepage
+Add a search bar for filtering
+Clicking a product opens product details
+Shopping cart should reflect items added or removed
+
+I want you to:
+Help me choose the tech stack that’s fast to build in Python
+Suggest how to organize the project (file structure)
+Start by generating the backend API (routes + models + dummy data)
+Then, help implement the cart logic (backend-first)
+Bonus: Suggest how I can test each part using Postman or browser before adding a frontend.
+
+Let’s build this step-by-step. Start with the backend setup and data model first."
+
+
+2nd Prompt:
+```
+Iterate and check if everything is fine
+Cause my http://localhost:8000/ is showing site not reached
+
+
+3rd Prompt: 
+```
+Hey Copilot, I'm getting a sqlalchemy.exc.NoForeignKeysError when trying to start my FastAPI app. The traceback says:
+Could not determine join condition between parent/child tables on relationship Product.cart_items – there are no foreign keys linking these tables.
+
+Help me fix the relationship between my Product and CartItem models.
+
+Here's what I need from you:
+
+Check if my SQLAlchemy models are missing any ForeignKey fields or if the relationship() setup is incorrect
+
+Suggest correct model definitions for Product and CartItem
+
+If possible, explain why this error happens and how to prevent it in future
+
+Note: I'm using SQLite and SQLAlchemy ORM, with FastAPI.
+
+Start by reviewing what a correct One-to-Many relationship looks like between a product and its associated cart items.
+
+Error: "{error}"
+```
+
+4th Prompt:
+```
+Currently the details of a product are coming just as a popup, there is a requirement for :
+"Navigate to the product description page on click."
+
+Also no need to change the docs, its an after thought
+```
